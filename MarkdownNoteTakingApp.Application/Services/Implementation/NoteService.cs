@@ -60,5 +60,10 @@ namespace MarkdownNoteTakingApp.Application.Services.Implementation
             var note = await _noteRepository.GetNoteByIdAsync(id);
             return await _markdownRenderService.RenderMarkdownToHtmlAsync(note.Content);
         }
+
+        public async Task<bool> NoteExistAsync(Guid id)
+        {
+            return await _noteRepository.NoteExistAsync(id);
+        }
     }
 }

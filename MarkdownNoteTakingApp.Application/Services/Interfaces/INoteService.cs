@@ -10,5 +10,6 @@ namespace MarkdownNoteTakingApp.Application.Services.Interfaces
         Task DeleteNoteAsync(Guid id);
         Task<string> RenderNoteToHtmlAsync(Guid id);
         Task<string> CheckNoteGrammarAsync(Guid id);
+        Task<bool> NoteExistAsync(Guid id);
     }
 }

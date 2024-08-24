@@ -41,5 +41,10 @@ namespace MarkdownNoteTakingApp.Infrastructure.Repositories
         {
             return await _db.Notes.FindAsync(id);
         }
+        
+        public async Task<bool> NoteExistAsync(Guid id)
+        {
+            return await _db.Notes.AnyAsync(x => x.Id == id);
+        }
     }
 }

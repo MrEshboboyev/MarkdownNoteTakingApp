@@ -30,10 +30,10 @@ namespace MarkdownNoteTakingApp.API.Controllers
         [HttpGet("{id}")]
         public async Task<IActionResult> GetNoteByIdAsync(Guid id)
         {
-            var note = await _noteService.GetNoteByIdAsync(id);
-            if (note == null)
+            if (!await _noteService.NoteExistAsync(id))
                 return NotFound();
 
+            var note = await _noteService.GetNoteByIdAsync(id);
             return Ok(note);
         }
 
@@ -47,6 +47,9 @@ namespace MarkdownNoteTakingApp.API.Controllers
         [HttpDelete("{id}")]
         public async Task<IActionResult> DeleteNoteAsync(Guid id)
         {
+            if (!await _noteService.NoteExistAsync(id))
+                return NotFound();
+
             await _noteService.DeleteNoteAsync(id);
             return NoContent();
         }
@@ -54,15 +57,21 @@ namespace MarkdownNoteTakingApp.API.Controllers
         [HttpGet("{id}/render")]
         public async Task<IActionResult> RenderNoteToHtmlAsync(Guid id)
         {
-            var html = await _noteService.RenderNoteToHtmlAsync(id);
-            return Content(html, "text/html");
+            if (!await _noteService.NoteExistAsync(id))
+                return NotFound();
+
+            var result = await _noteService.RenderNoteToHtmlAsync(id);
+            return Content(result, "text/html");
         }
 
         [HttpGet("{id}/check-grammar")]
         public async Task<IActionResult> CheckNoteGrammarAsync(Guid id)
         {
-            var correctedText = await _noteService.CheckNoteGrammarAsync(id);
-            return Ok(correctedText);
+            if (!await _noteService.NoteExistAsync(id))
+                return NotFound();
+
+            var result = await _noteService.CheckNoteGrammarAsync(id);
+            return Ok(result);
         }
     }
 }

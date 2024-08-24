@@ -8,5 +8,6 @@ namespace MarkdownNoteTakingApp.Application.Common.Interfaces
         Task<Note> GetNoteByIdAsync(Guid id);
         Task<IEnumerable<Note>> GetAllNotesAsync();
         Task DeleteNoteAsync(Guid id);
+        Task<bool> NoteExistAsync(Guid id);
     }
 }
