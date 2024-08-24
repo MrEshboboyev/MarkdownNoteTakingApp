@@ -15,11 +15,17 @@ namespace MarkdownNoteTakingApp.Infrastructure.Repositories
             _db = db;
         }
 
-        public async Task<Guid> AddNoteAsync(Note note)
+        public async Task<Guid> CreateNoteAsync(Note note)
         {
             _db.Notes.Add(note);
             await _db.SaveChangesAsync();
             return note.Id;
+        }
+        
+        public async Task UpdateNoteAsync(Note note)
+        {
+            _db.Notes.Update(note);
+            await _db.SaveChangesAsync();
         }
 
         public async Task DeleteNoteAsync(Guid id)

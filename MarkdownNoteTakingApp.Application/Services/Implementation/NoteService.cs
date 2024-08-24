@@ -36,7 +36,7 @@ namespace MarkdownNoteTakingApp.Application.Services.Implementation
                 CreatedAt = DateTime.UtcNow
             };
 
-            await _noteRepository.AddNoteAsync(note);
+            await _noteRepository.CreateNoteAsync(note);
             return note.Id;
         }
 
