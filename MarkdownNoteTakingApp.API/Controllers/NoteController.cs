@@ -17,14 +17,21 @@ namespace MarkdownNoteTakingApp.API.Controllers
         }
 
         [HttpPost]
-        public async Task<IActionResult> CreateNoteAsync([FromBody] CreateNoteModel model)
+        public async Task<IActionResult> CreateNoteAsync([FromForm] CreateNoteModel model)
         {
-            var noteId = await _noteService.CreateNoteAsync(model.Title, model.Content);
+            var noteId = await _noteService.CreateNoteAsync(model);
+            return Ok(noteId);
+        }
 
-            // Constructing the URI manually
-            var locationUrl = Url.Action(nameof(GetNoteByIdAsync), new { id = noteId });
+        [HttpPut("{id}")]
+        public async Task<IActionResult> UpdateNoteAsync(Guid id, [FromForm] UpdateNoteModel model)
+        {
+            if (!await _noteService.NoteExistAsync(id))
+                return NotFound();
 
-            return Created(locationUrl, noteId);
+            model.Id = id;
+            await _noteService.UpdateNoteAsync(model);
+            return NoContent();
         }
 
         [HttpGet("{id}")]

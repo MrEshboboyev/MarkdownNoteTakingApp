@@ -39,6 +39,13 @@ namespace MarkdownNoteTakingApp.Application.Services.Implementation
                 fileName = $"{Guid.NewGuid()}_{model.File.FileName}";
                 filePath = Path.Combine("wwwroot", "uploads", fileName);
 
+                // create directory, if it is not created yet
+                var directoryPath = Path.GetDirectoryName(filePath);
+                if (!Directory.Exists(directoryPath))
+                {
+                    Directory.CreateDirectory(directoryPath);
+                }
+
                 using (var stream = new FileStream(filePath, FileMode.Create))
                 {
                     await model.File.CopyToAsync(stream);
