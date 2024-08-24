@@ -1,4 +1,8 @@
+using MarkdownNoteTakingApp.Application.Common.Interfaces;
+using MarkdownNoteTakingApp.Application.Services.Implementation;
+using MarkdownNoteTakingApp.Application.Services.Interfaces;
 using MarkdownNoteTakingApp.Infrastructure.Data;
+using MarkdownNoteTakingApp.Infrastructure.Repositories;
 using Microsoft.EntityFrameworkCore;
 
 var builder = WebApplication.CreateBuilder(args);
@@ -15,6 +19,15 @@ builder.Services.AddDbContext<ApplicationDbContext>(options =>
 {
     options.UseNpgsql(builder.Configuration.GetConnectionString("DefaultConnection"));
 });
+
+// register http clients
+builder.Services.AddHttpClient<IGrammarCheckService>();
+
+// lifetime for services
+builder.Services.AddScoped<INoteRepository, NoteRepository>();
+builder.Services.AddScoped<INoteService, NoteService>();
+builder.Services.AddScoped<IGrammarCheckService, GrammarCheckService>();
+builder.Services.AddScoped<IMarkdownRenderService, MarkdownRenderService>();
 
 
 var app = builder.Build();
