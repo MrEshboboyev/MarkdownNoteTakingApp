@@ -16,6 +16,7 @@
   </ItemGroup>
 
   <ItemGroup>
+    <ProjectReference Include="..\MarkdownNoteTakingApp.Application\MarkdownNoteTakingApp.Application.csproj" />
     <ProjectReference Include="..\MarkdownNoteTakingApp.Domain\MarkdownNoteTakingApp.Domain.csproj" />
   </ItemGroup>
 
