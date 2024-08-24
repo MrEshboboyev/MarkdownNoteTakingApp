@@ -10,4 +10,8 @@
     <PackageReference Include="Microsoft.Extensions.DependencyInjection.Abstractions" Version="8.0.1" />
   </ItemGroup>
 
+  <ItemGroup>
+    <ProjectReference Include="..\MarkdownNoteTakingApp.Domain\MarkdownNoteTakingApp.Domain.csproj" />
+  </ItemGroup>
+
 </Project>
